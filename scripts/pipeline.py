@@ -41,17 +41,17 @@ def run_verisol(sol_file: Path, contract_name: str, cwd=None) -> bool:
 
 # def run_command(cmd, cwd=None):
 #     """Esegue un comando di sistema con log e gestione errori"""
-#     # print(f"\n▶️ Run: {' '.join(cmd)}")
+#     # print(f"\nRun: {' '.join(cmd)}")
 #     try:
 #         result = subprocess.run(cmd, cwd=cwd, check=True, timeout=30)  # Timeout di 5 minuti
 #         if "Assertion failed" in result.stdout or "Assertion failed" in result.stderr:
-#             print(f"⚠️ VeriSol assertion crash")
+#             print(f"VeriSol assertion crash")
 #             return False
 #     except subprocess.TimeoutExpired:
-#         print(f"⚠️ Command timed out: {cmd[0]}")
+#         print(f"Command timed out: {cmd[0]}")
 #         return False
 #     except subprocess.CalledProcessError as e:
-#         # print(f"❌ Error during the execution of: {' '.join(cmd)}")
+#         # print(f"Error during the execution of: {' '.join(cmd)}")
 #         # print(e)
 #         return False
 #     return True
@@ -62,24 +62,24 @@ def run_command(cmd, cwd=None, timeout=30):
             cmd, cwd=cwd,
             # stdout=subprocess.PIPE,
             # stderr=subprocess.PIPE,
-            start_new_session=True  # ✅ puts process in its own group
+            start_new_session=True  # puts process in its own group
         )
         try:
             stdout, stderr = process.communicate(timeout=timeout)
         except subprocess.TimeoutExpired:
-            print(f"⚠️ Command timed out: {cmd[0]}")
-            # os.killpg(os.getpgid(process.pid), signal.SIGKILL)  # ✅ kills entire process group
+            print(f"Command timed out: {cmd[0]}")
+            # os.killpg(os.getpgid(process.pid), signal.SIGKILL)  # kills entire process group
             # process.wait()
             return False
 
         # if "Assertion failed" in (stdout.decode() + stderr.decode()):
-        #     print(f"⚠️ VeriSol assertion crash")
+        #     print(f"VeriSol assertion crash")
         #     return False
 
         return process.returncode == 0
 
     except Exception as e:
-        print(f"⚠️ Command error: {e}")
+        print(f"Command error: {e}")
         return False
     
 def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
@@ -132,22 +132,22 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                 sol_file = next(MUTATION_DIR.glob(f"*{target_suffix}"))
                 sol_file_name = sol_file.stem
 
-                # # 1️⃣ Extract pragma
+                # # 1. Extract pragma
                 # try:
                 #     pragma = extract_pragma(sol_file)
-                #     print(f"🔹 Pragma found: {pragma}")
+                #     print(f"Pragma found: {pragma}")
                 # except ValueError as e:
-                #     print(f"⚠️ {e}")
+                #     print(f"{e}")
                 #     continue
 
-                # # 2️⃣  Switch solc version for VeriSol 
+                # # 2. Switch solc version for VeriSol 
                 # if not run_command(["bash", str(SCRIPT_SWITCH), pragma]):
                 #     continue
 
-                # 3️⃣ Run VeriSol to generate .bpl
+                # 3. Run VeriSol to generate .bpl
                 contract_name = sol_file.stem
                 if(not run_verisol(sol_file, contract_name, cwd=OUTPUT_DIR)):
-                    print(f"⚠️ Verisol failed on {sol_file_name}, skip.")
+                    print(f"Verisol failed on {sol_file_name}, skip.")
                     row[6] = ("Verisol Failed")
                     writer.writerow(row)
                     f.flush()
@@ -155,10 +155,10 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                 
                 rename_file_and_clean(OUTPUT_DIR, sol_file_name)
                 
-                # 4️⃣ Run Boogie on .bpl and Generate VC SMT files for each procedure
+                # 4. Run Boogie on .bpl and Generate VC SMT files for each procedure
                 bpl_file = OUTPUT_DIR / f"{sol_file_name}.bpl"
                 if not bpl_file.exists():
-                    print(f"⚠️ File .bpl does not exist for {contract_name}, skip.")
+                    print(f"File .bpl does not exist for {contract_name}, skip.")
                     continue
 
                 docker_cmd = [
@@ -171,7 +171,7 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                     f"/proverLog:{mutation}.smt2"
                 ]
                 if not run_command(docker_cmd, cwd=OUTPUT_DIR):
-                    print(f"⚠️ Boogie failed on {sol_file_name}, skip.")
+                    print(f"Boogie failed on {sol_file_name}, skip.")
                     row[6] = ("Boogie Failed")
                     writer.writerow(row)
                     f.flush()
@@ -179,7 +179,7 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
 
                 smt_filepath = OUTPUT_DIR / f"{mutation}.smt2"
                 if not (smt_filepath).exists():
-                    print(f"⚠️ SMT file not found for {mutation}, skip.")
+                    print(f"SMT file not found for {mutation}, skip.")
                     row[6] = ("SMT Generation Failed")
                     writer.writerow(row)
                     f.flush()
@@ -303,22 +303,22 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                 sol_file = next(MUTATION_DIR.glob(f"*{target_suffix}"))
                 sol_file_name = sol_file.stem
 
-                # # 1️⃣ Extract pragma
+                # # 1. Extract pragma
                 # try:
                 #     pragma = extract_pragma(sol_file)
-                #     print(f"🔹 Pragma found: {pragma}")
+                #     print(f"Pragma found: {pragma}")
                 # except ValueError as e:
-                #     print(f"⚠️ {e}")
+                #     print(f"{e}")
                 #     continue
 
-                # # 2️⃣  Switch solc version for VeriSol 
+                # # 2. Switch solc version for VeriSol 
                 # if not run_command(["bash", str(SCRIPT_SWITCH), pragma]):
                 #     continue
 
-                # 3️⃣ Run VeriSol to generate .bpl
+                # 3. Run VeriSol to generate .bpl
                 contract_name = sol_file.stem
                 if(not run_verisol(sol_file, contract_name, cwd=OUTPUT_DIR)):
-                    print(f"⚠️ Verisol failed on {sol_file_name}, skip.")
+                    print(f"Verisol failed on {sol_file_name}, skip.")
                     row[6] = "Verisol Failed"
                     writer.writerow(row)
                     f.flush()
@@ -327,10 +327,10 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                 rename_file_and_clean(OUTPUT_DIR, sol_file_name)
                 remove_useless_line(OUTPUT_DIR / f"{sol_file_name}.bpl")
 
-                # 4️⃣ Run Boogie on .bpl and Generate VC SMT files for each procedure
+                # 4. Run Boogie on .bpl and Generate VC SMT files for each procedure
                 bpl_file = OUTPUT_DIR / f"{sol_file_name}.bpl"
                 if not bpl_file.exists():
-                    print(f"⚠️ File .bpl does not exist for {contract_name}, skip.")
+                    print(f"File .bpl does not exist for {contract_name}, skip.")
                     continue
 
                 docker_cmd = [
@@ -349,7 +349,7 @@ def run_pipeline(heuristics: None, rounds: int = 1, identity: bool = False):
                     continue
 
                 if not (OUTPUT_DIR / f"{mutation}.smt2").exists():
-                    print(f"⚠️ SMT file not found for {mutation}, skip.")
+                    print(f"SMT file not found for {mutation}, skip.")
                     row[6] = ("SMT Generation Failed")
                     writer.writerow(row)
                     f.flush()

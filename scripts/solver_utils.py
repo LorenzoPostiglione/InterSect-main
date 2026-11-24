@@ -1720,8 +1720,8 @@ def select_free_vars(
             raise ValueError(f"Unknown variable names: {invalid}")
         selected = [name_to_var[n] for n in keep]
         discarded = [v for v in free_vars if v not in selected]
-        print(f"✓ Kept    ({len(selected)}): {[n for n, _ in selected]}")
-        print(f"✗ Discarded ({len(discarded)}): {[n for n, _ in discarded]}")
+        print(f"Kept      ({len(selected)}): {[n for n, _ in selected]}")
+        print(f"Discarded ({len(discarded)}): {[n for n, _ in discarded]}")
         return selected
 
     # --- Interactive mode ---
@@ -1763,8 +1763,8 @@ def select_free_vars(
             break
 
     discarded = [v for v in free_vars if v not in selected]
-    print(f"\n✓ Kept    ({len(selected)}): {[n for n, _ in selected]}")
-    print(f"✗ Discarded ({len(discarded)}): {[n for n, _ in discarded]}")
+    print(f"\nKept      ({len(selected)}): {[n for n, _ in selected]}")
+    print(f"Discarded ({len(discarded)}): {[n for n, _ in discarded]}")
     return selected
 # USAGE
 # file_path = Path(__file__).parent.parent / "output" / "me4a137ba.smt2"

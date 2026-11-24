@@ -1,8 +1,9 @@
 import os
-from solver_utils_typed import intervalGuidedSampler
+from classes import SamplerEngine
+
 
 def run_algorithm_on_benchmark(benchmark_path, theta, coverage):
-    results_dir = "benchmarks/automatark-lu-80_results_interval_guided_sampler_cov"+str(coverage)
+    results_dir = "benchmarks/automatark-lu-80_results_interval_guided_sampler_cov" + str(coverage)
 
     for filename in sorted(os.listdir(benchmark_path)):
         if filename.endswith(".smt2"):
@@ -15,8 +16,17 @@ def run_algorithm_on_benchmark(benchmark_path, theta, coverage):
 
             smt_filepath = os.path.join(benchmark_path, filename)
 
-            intervalGuidedSampler(smt_filepath, theta=theta, coverage=coverage, delta=0.0050, U=2**256 - 1, timeout=1800, threads=60)
-            
+            engine = SamplerEngine.from_config(
+                smt_filepath=smt_filepath,
+                theta=theta,
+                coverage=coverage,
+                delta=0.0050,
+                U=2**256 - 1,
+                timeout=1800,
+                threads=60,
+            )
+            engine.run()
+
 
 if __name__ == "__main__":
     benchmark_folder = "benchmarks/automatark-lu-80"

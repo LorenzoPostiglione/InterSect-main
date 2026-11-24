@@ -82,8 +82,8 @@ def build_arg_parser() -> argparse.ArgumentParser:
 def main() -> int:
     args = build_arg_parser().parse_args()
 
-    from solver_utils_typed import intervalGuidedSampler
-    from solver_utils import extract_free_vars_with_type_from_smt2_file, select_free_vars
+    from classes import DomainPartitioner, SamplerEngine
+    from solver_utils import select_free_vars
 
     if not args.file_path.exists():
         raise SystemExit(f"[ERROR] SMT file not found: {args.file_path}")
@@ -104,15 +104,15 @@ def main() -> int:
 
     free_vars = None
     if args.free_vars is not None:
-        available_free_vars = extract_free_vars_with_type_from_smt2_file(args.file_path)
+        available_free_vars = DomainPartitioner.extract_free_vars_from_file(args.file_path)
         free_vars = select_free_vars(
             available_free_vars,
             keep=args.free_vars,
             interactive=False,
         )
 
-    intervalGuidedSampler(
-        args.file_path,
+    engine = SamplerEngine.from_config(
+        smt_filepath=args.file_path,
         free_vars=free_vars,
         theta=args.theta,
         coverage=args.coverage,
@@ -122,6 +122,7 @@ def main() -> int:
         threads=60,
         num_samples=args.num_samples,
     )
+    engine.run()
     return 0
 
 

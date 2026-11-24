@@ -126,7 +126,7 @@ def remove_useless_line(file):
     os.replace(temp_file, file)
 
 def rename_file_and_clean(CONTRACTS_DIR, new_file_name):
-    print(f"\n▶️ Rinomino file di output di VeriSol in {new_file_name}.bpl e pulisco i file temporanei")
+    print(f"\nRinomino file di output di VeriSol in {new_file_name}.bpl e pulisco i file temporanei")
     """Rinomina i file di output di VeriSol e pulisce i file temporanei"""
     file_name = CONTRACTS_DIR / "__SolToBoogieTest_out.bpl"
     if file_name.exists():
@@ -156,22 +156,22 @@ def run_command(command, cwd=None):
 
 def switch_solc(cmd, cwd=None):
     """Esegue un comando di sistema con log e gestione errori"""
-    print(f"\n▶️ Eseguo: {' '.join(cmd)}")
+    print(f"\nEseguo: {' '.join(cmd)}")
     try:
         subprocess.run(cmd, cwd=cwd, check=True)
     except subprocess.CalledProcessError as e:
-        print(f"❌ Errore durante l'esecuzione di: {' '.join(cmd)}")
+        print(f"Errore durante l'esecuzione di: {' '.join(cmd)}")
         print(e)
         return False
     return True
 
 def run_docker(cmd):
     """Esegue un comando di sistema con log e gestione errori"""
-    print(f"\n▶️ Eseguo: {' '.join(cmd)}")
+    print(f"\nEseguo: {' '.join(cmd)}")
     try:
         subprocess.run(cmd, cwd=None, check=True)
     except subprocess.CalledProcessError as e:
-        print(f"❌ Errore durante l'esecuzione di: {' '.join(cmd)}")
+        print(f"Errore durante l'esecuzione di: {' '.join(cmd)}")
         print(e)
         return False
     return True
@@ -217,8 +217,8 @@ def extract_invariants(json_file=Path(__file__).parent.parent / "Aletheia/alethe
         data = json.load(file)
     
     invariants = []
-    for file_name, mutations in data.items():  # 🔹 iteri su chiave + lista
-        for mutation in mutations:             # 🔹 iteri dentro la lista
+    for file_name, mutations in data.items():  # iteri su chiave + lista
+        for mutation in mutations:             # iteri dentro la lista
             if mutation.get("operator") == "FI":
                 struct = {
                     "file_name": file_name,
@@ -415,13 +415,13 @@ def mutation_chain(id, inv):
     with open(path_mutations, 'r') as file:
         data = json.load(file)
     # passo base
-    for file_name, mutations in data.items():  # 🔹 iteri su chiave + list
-        for mutation in mutations:             # 🔹 iteri dentro la lista
+    for file_name, mutations in data.items():  # iteri su chiave + list
+        for mutation in mutations:             # iteri dentro la lista
             if mutation.get("id") == id and not("-" in Path(mutation.get("file")).stem):
                 return mutation.get("operator")+"("+inv+")"
     # ricorsione
-    for file_name, mutations in data.items():  # 🔹 iteri su chiave + list
-        for mutation in mutations:             # 🔹 iteri dentro la lista
+    for file_name, mutations in data.items():  # iteri su chiave + list
+        for mutation in mutations:             # iteri dentro la lista
             if mutation.get("id") == id and ("-" in Path(mutation.get("file")).stem):
                 parent_id = extract_last_mutation_id(Path(mutation.get("file")).stem)
                 parent_chain = mutation_chain(parent_id, inv)
@@ -526,7 +526,7 @@ def mutation_chain(id, inv):
 # import math
 
 # # --------------------------
-# # 1️⃣ Create mask
+# # 1. Create mask
 # # --------------------------
 # def create_mask(interval_width, num_intervals, min_range, max_range):
 #     """Crea una maschera rappresentata come lista di intervalli (start, width)."""
@@ -538,7 +538,7 @@ def mutation_chain(id, inv):
 #     return intervals
 
 # # --------------------------
-# # 2️⃣ Unmasking check
+# # 2. Unmasking check
 # # --------------------------
 # def is_masked(x, intervals, min_range, max_range):
 #     """Ritorna True se x è dentro uno degli intervalli della maschera."""
@@ -551,7 +551,7 @@ def mutation_chain(id, inv):
 #     return False
 
 # # --------------------------
-# # 3️⃣ Unmasked Bag using sampling
+# # 3. Unmasked Bag using sampling
 # # --------------------------
 # def unmasked_bag(intervals_list, min_range, max_range, samples):
 #     """Genera un bag dei valori non mascherati campionati."""
@@ -568,7 +568,7 @@ def mutation_chain(id, inv):
 #     return bag
 
 # # --------------------------
-# # 4️⃣ Entropia relativa
+# # 4. Entropia relativa
 # # --------------------------
 # def relative_entropy_of_bag(bag: Counter):
 #     """Calcola entropia della bag rispetto al massimo teorico per il campione."""
@@ -586,7 +586,7 @@ def mutation_chain(id, inv):
 #     return entropy, max_entropy, entropy / max_entropy
 
 # # --------------------------
-# # 5️⃣ Example
+# # 5. Example
 # # --------------------------
 # unmaskedList = []
 # uint_min = 0
