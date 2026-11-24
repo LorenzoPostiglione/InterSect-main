@@ -1,0 +1,125 @@
+{
+  "all_passed": true,
+  "test_cases": [
+    {
+      "tc_id": "TC-01",
+      "category": "Unmodified",
+      "status": "PASS",
+      "duration_s": 0.0007,
+      "details": "parse_int_expr('2**256-1')=True, delta_default=0.005, invalid_rejected=True"
+    },
+    {
+      "tc_id": "TC-02",
+      "category": "Unmodified",
+      "status": "PASS",
+      "duration_s": 0.0,
+      "details": "kept=[('x0_plus', 'Int'), ('X', 'String')], unknown_rejected=True"
+    },
+    {
+      "tc_id": "TC-03",
+      "category": "Unmodified",
+      "status": "PASS",
+      "duration_s": 0.0366,
+      "details": "intervals=48, coverage=28.46%, ks_stat=0.0650, p_value=0.9792"
+    },
+    {
+      "tc_id": "TC-04",
+      "category": "Unmodified",
+      "status": "PASS",
+      "duration_s": 0.1117,
+      "details": "idx(a,z,aa)=(0,25,26), intervals=50, coverage=28.60%, ks_stat=0.1107, p_value=0.5478"
+    },
+    {
+      "tc_id": "TC-05",
+      "category": "Unmodified",
+      "status": "PASS",
+      "duration_s": 0.1256,
+      "details": "[INFO] CSV file              : tests/oracles/deterministic/automatark-lu-80_results_interval_guided_sampler_cov10/instance00022.csv | [INFO] Interval column  "
+    },
+    {
+      "tc_id": "TC-06",
+      "category": "ModifiedTarget",
+      "status": "PASS",
+      "duration_s": 0.0054,
+      "details": "fvars_int_count=20, fvars_str=[('X', 'String')], directional_bounds=(10, 100)"
+    },
+    {
+      "tc_id": "TC-07",
+      "category": "ModifiedTarget",
+      "status": "PASS",
+      "duration_s": 0.0021,
+      "details": "E=['b_flag', 'x_small'], L=['s_var', 'x_large']"
+    },
+    {
+      "tc_id": "TC-08",
+      "category": "ModifiedTarget",
+      "status": "PASS",
+      "duration_s": 34.1464,
+      "oracle_duration_s": 55.8864,
+      "rows": 3,
+      "sat_rows": 3,
+      "unsat_rows": 0,
+      "bit_for_bit_match": true,
+      "details": "file=benchmarks/slacks-80/10-12.slack.smt2, rows=3 (SAT=3, UNSAT=0), match=True"
+    },
+    {
+      "tc_id": "TC-09",
+      "category": "ModifiedTarget",
+      "status": "PASS",
+      "duration_s": 54.0947,
+      "oracle_duration_s": 40.6327,
+      "rows": 3,
+      "sat_rows": 3,
+      "unsat_rows": 0,
+      "bit_for_bit_match": true,
+      "details": "file=benchmarks/automatark-lu-80/instance00022.smt2, rows=3 (SAT=3, UNSAT=0), match=True"
+    },
+    {
+      "tc_id": "TC-10",
+      "category": "ModifiedTarget",
+      "status": "PASS",
+      "duration_s": 1.631,
+      "oracle_duration_s": 1.9546,
+      "rows": 20,
+      "sat_rows": 0,
+      "unsat_rows": 20,
+      "bit_for_bit_match": true,
+      "details": "file=benchmarks/automatark-lu-80/instance02824.smt2, rows=20 (SAT=0, UNSAT=20), match=True"
+    },
+    {
+      "tc_id": "TC-11",
+      "category": "AddedOO",
+      "status": "PASS",
+      "duration_s": 0.0006,
+      "details": "extracted=4, bounds=(10, 50), E=['b_flag', 'bv8', 'x_small'], L=['x_large']"
+    },
+    {
+      "tc_id": "TC-12",
+      "category": "AddedOO",
+      "status": "PASS",
+      "duration_s": 0.0209,
+      "details": "issubclass=True, distinct_models=True, tmp_files_created=0"
+    },
+    {
+      "tc_id": "TC-13",
+      "category": "AddedOO",
+      "status": "PASS",
+      "duration_s": 0.0159,
+      "details": "rows=3, sat_count=2, already_reached_target=True"
+    },
+    {
+      "tc_id": "TC-14",
+      "category": "AddedOO",
+      "status": "PASS",
+      "duration_s": 2.5147,
+      "details": "pool_reused=True, pool_closed=True, masks_generated=2, is_uniform=True"
+    },
+    {
+      "tc_id": "TC-15",
+      "category": "AddedOO",
+      "status": "PASS",
+      "duration_s": 16.6534,
+      "details": "samples_collected=2, csv_exists=True, rows=2"
+    }
+  ]
+}
