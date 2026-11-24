@@ -1,0 +1,13 @@
+.*
+_*
+*.md
+venv
+__pycache__
+*.py[cod]
+*$py.class
+tmp
+benchmarks/*_results_*
+docs
+tests
+test
+Thumbs.db
